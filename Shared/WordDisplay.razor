@@ -1,0 +1,91 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Headers
+
+<div>
+    @if (IsLoading)
+    {
+        <h2>Loading....</h2> 
+    }
+    else
+    { 
+        @if (LongestWord.Length == 9)
+        {
+            <div class="container word nine-letter">
+                <h2>You found a 9 letter word!</h2>
+
+                <div class="word-string nine-letter-word">@LongestWord.WordString</div>
+                @if (LongestWord.Definition != null)
+                {
+                    <div class="word-definition nine-letter-definition">@LongestWord.Definition</div> 
+                }
+                else if (DefinitionFailedToSet)
+                {
+                    <div class="word-definition">
+                        A definition couldn't be loaded, <a href="https://www.dictionary.com/browse/@LongestWord.WordString">try checking here</a> to see if this is actually a word
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="container found-words">
+            @foreach (var word in WordList)
+            {
+                <div class="container word">
+                    <div class="word-length">@word.Length Letters</div>
+                    <div class="word-string">@word.WordString</div>
+                </div>
+            }
+        </div>
+
+
+    }
+</div>
+
+@code 
+{
+    [Parameter]
+    public List<Word> WordList { get; set; }
+
+    public Word LongestWord { get; set; }
+
+    private bool DefinitionFailedToSet { get; set; }
+
+    private bool IsLoading { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoading = true;
+
+        WordList.Reverse();
+        LongestWord = WordList[0];
+
+        using(var client = new HttpClient())
+        {
+
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+            LongestWord = WordList[0];
+            WordList.RemoveAt(0);
+
+            var response = await client.GetAsync($"https://api.dictionaryapi.dev/api/v2/entries/en_GB/{LongestWord.WordString}");
+            List<WordDefinition> wordData = null;
+
+            if (response.IsSuccessStatusCode)
+            {
+                wordData = await response.Content.ReadFromJsonAsync<List<WordDefinition>>();
+
+                if (wordData != null)
+                    LongestWord.SetDefinition(wordData[0]);
+            }
+            else
+            {
+                DefinitionFailedToSet = true;
+            }
+
+        }
+
+        IsLoading = false;
+    }
+}
+

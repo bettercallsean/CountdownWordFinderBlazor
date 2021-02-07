@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountdownWordFinderBlazor", "CountdownWordFinderBlazor.csproj", "{F6071AF5-AA09-479F-89B1-E37A650D9CD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6071AF5-AA09-479F-89B1-E37A650D9CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6071AF5-AA09-479F-89B1-E37A650D9CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6071AF5-AA09-479F-89B1-E37A650D9CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6071AF5-AA09-479F-89B1-E37A650D9CD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64F2A8DC-9D1C-4219-B9E7-A0F35118FB44}
+	EndGlobalSection
+EndGlobal
