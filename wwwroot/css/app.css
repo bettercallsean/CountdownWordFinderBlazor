@@ -22,7 +22,7 @@ app {
 }
 
 header {
-    margin: 30px auto;
+
     display: flex;
     padding: 20px;
     justify-content: center;
@@ -85,12 +85,12 @@ h1 {
 }
 
 .letter {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     margin: 10px 10px;
 }
     .letter input {
-        font-size: 72px;
+        font-size: 96px;
         font-weight: bold;
         width: inherit;
         height: inherit;
