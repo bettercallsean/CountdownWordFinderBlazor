@@ -88,6 +88,9 @@ else
 
 
 @code {
+
+    private bool PageLoading { get => WordFinder.LetterDictionary == null; }
+
     protected override async Task OnInitializedAsync()
     {
         string dictionaryString = await http.GetStringAsync("data/dictionary.json");
