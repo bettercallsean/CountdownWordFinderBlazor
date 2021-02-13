@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using Newtonsoft.Json
+@using Majorsoft.Blazor.Components.Loading
 @inject HttpClient http
 @inject WordFinder WordFinder
 
@@ -39,6 +40,12 @@ else
                         <input type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" />
                     </div>
                 }
+<LoadingPage IsLoading="@PageLoading">
+    <LoadingContent>
+        <i class="fa fa-cog fa-3x fa-spin"></i>
+        <h2 class="m-3">Loading...</h2>
+    </LoadingContent>
+</LoadingPage>
 
             </div>
 
