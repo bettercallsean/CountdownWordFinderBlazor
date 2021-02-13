@@ -4,42 +4,6 @@
 @inject HttpClient http
 @inject WordFinder WordFinder
 
-@if (WordFinder.LetterDictionary == null)
-{
-    <h2>Loading...</h2>
-}
-else
-{
-    <header>
-        <div class="header-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="70" height="70" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <circle cx="12" cy="12" r="9"></circle>
-                <polyline points="12 7 12 12 15 15"></polyline>
-            </svg>
-        </div>
-        <h1 class="header-title">Countdown Word Finder</h1>
-    </header>
-
-    
-
-    <main>
-        <div class="search-components">
-            <div class="container letter-input">
-
-                @for (var i = 0; i < WordFinder.LetterArray.Length; i++)
-                {
-                    /* Solution stolen from here: https://stackoverflow.com/questions/57910886/blazor-how-to-use-a-bind-to-an-array-of-booleans
-                 The incrementor seems to do the desired length + 1, resulting in an IndexOutOfRangeException
-                 When the iterator is changed to letterArray.Length - 1, I think the final value of i ends up being 8, because the value still binds
-                 to the inputs, but I think it only updates letterArray[8] because only one letter is shown by LetterArrayString
-                 An annoying quirk but hey-ho ¯\_(ツ)_/¯
-                */
-                    var localIndex = i;
-                    <div class="letter">
-                        <input type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" />
-                    </div>
-                }
 <LoadingPage IsLoading="@PageLoading">
     <LoadingContent>
         <i class="fa fa-cog fa-3x fa-spin"></i>
@@ -47,40 +11,69 @@ else
     </LoadingContent>
 </LoadingPage>
 
-            </div>
+<header>
+    <div class="header-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="70" height="70" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12 7 12 12 15 15"></polyline>
+        </svg>
+    </div>
+    <h1 class="header-title">Countdown Word Finder</h1>
+</header>
 
 
-            <div class="container submit-content">
-                <div class="container submit-content-buttons">
-                    <button typeof="button" class="btn btn-primary submit-button" @onclick="WordFinder.Search">Find Words!</button>
-                    <button typeof="button" class="btn btn-danger reset-button" @onclick="WordFinder.ResetState">Reset</button>
-                </div>
-                <div class="empty-args" hidden="@WordFinder.ArrayFilled"><h3>Please fill all the boxes before searching!</h3></div>
-            </div>
+
+<main>
+    <div class="search-components">
+        <div class="container letter-input">
+
+            @for (var i = 0; i < WordFinder.LetterArray.Length; i++)
+            {
+                /* Solution stolen from here: https://stackoverflow.com/questions/57910886/blazor-how-to-use-a-bind-to-an-array-of-booleans
+             The incrementor seems to do the desired length + 1, resulting in an IndexOutOfRangeException
+             When the iterator is changed to letterArray.Length - 1, I think the final value of i ends up being 8, because the value still binds
+             to the inputs, but I think it only updates letterArray[8] because only one letter is shown by LetterArrayString
+             An annoying quirk but hey-ho ¯\_(ツ)_/¯
+            */
+                var localIndex = i;
+                <div class="letter">
+                    <input type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" />
+                </div>}
+
         </div>
 
 
-        @if (WordFinder.SearchComplete)
+        <div class="container submit-content">
+            <div class="container submit-content-buttons">
+                <button typeof="button" class="btn btn-primary submit-button" @onclick="WordFinder.Search">Find Words!</button>
+                <button typeof="button" class="btn btn-danger reset-button" @onclick="WordFinder.ResetState">Reset</button>
+            </div>
+            <div class="empty-args" hidden="@WordFinder.ArrayFilled"><h3>Please fill all the boxes before searching!</h3></div>
+        </div>
+    </div>
+
+
+    @if (WordFinder.SearchComplete)
+    {
+        @if (WordFinder.WordList.Count > 0)
         {
-            @if (WordFinder.WordList.Count > 0)
-            {
-                <WordDisplay WordList="WordFinder.WordList" />
-            }
-            else
-            {
-                <h3>No results were found :(</h3>
-            }
-
+            <WordDisplay WordList="WordFinder.WordList" />
         }
-    </main>
-    <footer>
-        <div class="container site-info">
-            <p>Definitions are provided by <a href="https://dictionaryapi.dev/">dictionaryapi.dev</a>. Your website is amazing!</p>
-            <p>The word list for this site <a href="https://github.com/dwyl/english-words" target="_blank">can be found here</a>.</p>
-            <p>Did the site return a word that isn't real? Got any suggestions or queries? <a href="mailto:hello@seanedwards.dev" target="_blank">Feel free to send me an email</a> and I'll look into it!</p>
-        </div>
-    </footer>
-}
+        else
+        {
+            <h3>No results were found :(</h3>
+        }
+     }
+</main>
+<footer>
+    <div class="container site-info">
+        <p>Definitions are provided by <a href="https://dictionaryapi.dev/">dictionaryapi.dev</a>. Your website is amazing!</p>
+        <p>The word list for this site <a href="https://github.com/dwyl/english-words" target="_blank">can be found here</a>.</p>
+        <p>Did the site return a word that isn't real? Got any suggestions or queries? <a href="mailto:hello@seanedwards.dev" target="_blank">Feel free to send me an email</a> and I'll look into it!</p>
+    </div>
+</footer>
+
 
 
 
@@ -97,12 +90,11 @@ else
         WordFinder.LetterDictionary = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(dictionaryString);
 
         int index = 0;
-        foreach(char c in "sagnetisd")
+        foreach (char c in "sagnetisd")
         {
             WordFinder.LetterArray[index] = c.ToString();
             index++;
         }
-
     }
 
 }
