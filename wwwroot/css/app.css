@@ -22,7 +22,6 @@ app {
 }
 
 header {
-
     display: flex;
     padding: 20px;
     justify-content: center;
@@ -85,12 +84,13 @@ h1 {
 }
 
 .letter {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     margin: 10px 10px;
 }
     .letter input {
-        font-size: 96px;
+        margin: 15px auto;
+        font-size: 100px;
         font-weight: bold;
         width: inherit;
         height: inherit;
