@@ -3,6 +3,7 @@
 @using Majorsoft.Blazor.Components.Loading
 @inject HttpClient http
 @inject WordFinder WordFinder
+@inject IJSRuntime JSRuntime
 
 <LoadingPage IsLoading="@PageLoading">
     <LoadingContent>
@@ -37,9 +38,10 @@
              An annoying quirk but hey-ho ¯\_(ツ)_/¯
             */
                 var localIndex = i;
-                <div class="letter">
-                    <input type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" />
-                </div>}
+                <input class="letter" type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" onkeyup="nextInputSelector(this)" />
+                    
+                
+             }
 
         </div>
 
@@ -64,7 +66,7 @@
         {
             <h3>No results were found :(</h3>
         }
-     }
+    }
 </main>
 <footer>
     <div class="container site-info">
@@ -89,12 +91,6 @@
         string dictionaryString = await http.GetStringAsync("data/dictionary.json");
         WordFinder.LetterDictionary = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(dictionaryString);
 
-        int index = 0;
-        foreach (char c in "sagnetisd")
-        {
-            WordFinder.LetterArray[index] = c.ToString();
-            index++;
-        }
-    }
 
+    }
 }

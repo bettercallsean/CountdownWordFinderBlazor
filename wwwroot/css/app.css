@@ -79,7 +79,6 @@ h1 {
 
 .letter-input {
     justify-content: center;
-    align-content: center;
     flex-wrap: wrap;
 }
 
@@ -87,15 +86,10 @@ h1 {
     width: 140px;
     height: 140px;
     margin: 10px 10px;
+    font-size: 100px;
+    font-weight: bold;
+    text-align: center;
 }
-    .letter input {
-        margin: 15px auto;
-        font-size: 100px;
-        font-weight: bold;
-        width: inherit;
-        height: inherit;
-        text-align: center;
-    }
 
 .random-letters-button {
     margin: 10px 10px;
