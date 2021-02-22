@@ -7,7 +7,6 @@ function nextInputSelector(e) {
     var myLength = target.value.length;
     if (myLength >= maxLength) {
         var next = target;
-        console.log(next);
         while (next = next.nextElementSibling) {
             if (next == null)
                 break;
