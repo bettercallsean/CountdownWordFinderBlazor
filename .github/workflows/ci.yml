@@ -21,6 +21,10 @@ jobs:
         # Generate the website
         - name: Publish
           run: dotnet publish CountdownWordFinderBlazor.csproj --configuration Release
+          
+        # changes the base-tag in index.html from '/' to 'CountdownWordFinderBlazor' to match GitHub Pages repository subdirectory
+        - name: Change base-tag in index.html from / to CountdownWordFinderBlazor
+          run: sed -i 's/<base href="\/" \/>/<base href="\/CountdownWordFinderBlazor\/" \/>/g' release/wwwroot/index.html
 
         # Publish the website
         - name: GitHub Pages action
