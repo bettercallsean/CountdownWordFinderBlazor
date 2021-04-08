@@ -21,10 +21,6 @@ jobs:
         # Generate the website
         - name: Publish
           run: dotnet publish CountdownWordFinderBlazor.csproj --configuration Release
-          
-        # changes the base-tag in index.html from '/' to 'CountdownWordFinderBlazor' to match GitHub Pages repository subdirectory
-        - name: Change base-tag in index.html from / to CountdownWordFinderBlazor
-          run: sed -i 's/<base href="\/" \/>/<base href="\/CountdownWordFinderBlazor\/" \/>/g' release/wwwroot/index.html
 
         # Publish the website
         - name: GitHub Pages action
@@ -37,5 +33,4 @@ jobs:
             allow_empty_commit: false
             keep_files: false
             force_orphan: true
-            # TODO uncomment the following line if you have a custom domain name
-            # cname: demo.meziantou.net
+            cname: seanedwards.dev
