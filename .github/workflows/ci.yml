@@ -25,8 +25,8 @@ jobs:
         - name: Change base-tag in index.html from / to CountdownWordFinderBlazor
           run: sed -i 's/<base href="\/" \/>/<base href="\/CountdownWordFinderBlazor\/" \/>/g' bin/Release/net5.0/publish/wwwroot/index.html
         
-        - name: Change /js/ to CountdownWordFinderBlazor/js/
-          run: sed -i 's/<script src="\/js\/nextInputSelector.js"><\/script>/<script src="CountdownWordFinderBlazor\/js\/nextInputSelector.js"><\/script>/g' bin/Release/net5.0/publish/wwwroot/index.html
+        #- name: Change /js/ to CountdownWordFinderBlazor/js/
+        #  run: sed -i 's/<script src="\/js\/nextInputSelector.js"><\/script>/<script src="CountdownWordFinderBlazor\/js\/nextInputSelector.js"><\/script>/g' bin/Release/net5.0/publish/wwwroot/index.html
         
         # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
         - name: Add .nojekyll file
