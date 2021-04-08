@@ -161,6 +161,10 @@ h1 {
         margin: 0 0;
     }
 
+.no-results {
+    text-align: center;
+    margin: 2rem auto;
+}
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
