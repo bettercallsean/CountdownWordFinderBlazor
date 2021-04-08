@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using CountdownWordFinderBlazor.Models;
 using Newtonsoft.Json;
 
 namespace CountdownWordFinderBlazor
@@ -53,13 +54,11 @@ namespace CountdownWordFinderBlazor
             
         }
 
-
         public void FindWords()
         {
             SearchComplete = false;
 
             WordList = new List<Word>();
-
 
             // We're only interested in the 5-9 letter characters because anything else isn't really worth the time.
             for (int i = 5; i <= 9; i++)
@@ -123,7 +122,6 @@ namespace CountdownWordFinderBlazor
             SearchComplete = false;
         }
 
-        
         public bool LetterArrayFilled()
         {
             foreach(var letter in LetterArray)
