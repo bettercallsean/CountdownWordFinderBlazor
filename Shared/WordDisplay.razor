@@ -55,7 +55,9 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        IsLoading = true;
+        if(WordList == null)
+            IsLoading = true;
+
         LongestWord = WordList[0];
         WordList.RemoveAt(0);
 
