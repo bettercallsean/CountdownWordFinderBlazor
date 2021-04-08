@@ -22,5 +22,6 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="wwwroot\js\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

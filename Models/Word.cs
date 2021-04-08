@@ -1,4 +1,4 @@
-﻿namespace CountdownWordFinderBlazor
+﻿namespace CountdownWordFinderBlazor.Models
 {
     public class Word
     {

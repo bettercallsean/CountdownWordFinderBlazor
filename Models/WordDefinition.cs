@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CountdownWordFinderBlazor
+namespace CountdownWordFinderBlazor.Models
 {
     // Generated using http://jsonutils.com/, what a lovely utility
     // This class replicates the structure of the data returned by https://dictionaryapi.dev/
