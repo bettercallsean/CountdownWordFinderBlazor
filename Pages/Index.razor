@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using Newtonsoft.Json
+@using MsgPack.Serialization
 @using Majorsoft.Blazor.Components.Loading
 @inject HttpClient http
 @inject WordFinder WordFinder
@@ -88,9 +88,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        string dictionaryString = await http.GetStringAsync("data/dictionary.json");
-        WordFinder.LetterDictionary = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(dictionaryString);
+        var serializer = MessagePackSerializer.Get<Dictionary<string, List<string>>>();
+        var stream = await http.GetStreamAsync("data/dictionary");
 
+        WordFinder.LetterDictionary = serializer.Unpack(stream);
 
     }
 }
