@@ -23,11 +23,11 @@ jobs:
           run: dotnet publish CountdownWordFinderBlazor.csproj --configuration Release
           
         - name: Change base-tag in index.html from / to CountdownWordFinderBlazor
-          run: sed -i 's/<base href="\/" \/>/<base href="\/CountdownWordFinderBlazor\/" \/>/g' release/wwwroot/index.html
+          run: sed -i 's///g' bin/Release/net5.0/publish/wwwrootindex.html
         
         # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
         - name: Add .nojekyll file
-          run: touch release/wwwroot/.nojekyll
+          run: touch bin/Release/net5.0/publish/wwwroot/.nojekyll
           
         # Publish the website
         - name: GitHub Pages action
