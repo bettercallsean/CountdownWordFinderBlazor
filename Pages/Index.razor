@@ -38,10 +38,8 @@
              An annoying quirk but hey-ho ¯\_(ツ)_/¯
             */
                 var localIndex = i;
-                <input class="letter" type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" onkeyup="nextInputSelector(this)" />
-                    
-                
-             }
+                <input class="letter" type="text" maxlength="1" @bind="WordFinder.LetterArray[localIndex]" onkeyup="nextInputSelector(this)"/>
+            }
 
         </div>
 
@@ -55,18 +53,22 @@
         </div>
     </div>
 
-
+    @*SearchComplete needs to be checked first to ensure that WordList has been instantiated, otherwise it will throw an error*@
     @if (WordFinder.SearchComplete)
     {
         @if (WordFinder.WordList.Count > 0)
         {
-            <WordDisplay WordList="WordFinder.WordList" />
+            var wordListCopy = WordFinder.WordList.ToList();
+            wordListCopy.Reverse();
+            <WordDisplay WordList="wordListCopy" />
         }
         else
         {
             <h3>No results were found :(</h3>
         }
     }
+
+
 </main>
 <footer>
     <div class="container site-info">

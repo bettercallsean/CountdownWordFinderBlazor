@@ -56,18 +56,14 @@
     protected override async Task OnParametersSetAsync()
     {
         IsLoading = true;
-
-        WordList.Reverse();
         LongestWord = WordList[0];
+        WordList.RemoveAt(0);
 
         using(var client = new HttpClient())
         {
 
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-
-            LongestWord = WordList[0];
-            WordList.RemoveAt(0);
 
             var response = await client.GetAsync($"https://api.dictionaryapi.dev/api/v2/entries/en_GB/{LongestWord.WordString}");
             List<WordDefinition> wordData = null;
