@@ -1,0 +1,43 @@
+@import '';
+
+/* _content/Majorsoft.Blazor.Components.Loading/LoadingElement.razor.rz.scp.css */
+.loading[b-8hwki7hdtc] {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: relative;
+	z-index: 100;
+}
+
+.loading-content[b-8hwki7hdtc] {
+	position: absolute;
+	margin: auto;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	z-index: 101;
+	text-align: center;
+}
+/* _content/Majorsoft.Blazor.Components.Loading/LoadingPage.razor.rz.scp.css */
+.loading[b-w9uaxn3072] {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    z-index: 1000;
+    text-align: center;
+}
+
+.loading-content[b-w9uaxn3072] {
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+}
