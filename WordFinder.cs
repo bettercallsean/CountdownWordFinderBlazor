@@ -13,6 +13,7 @@ namespace CountdownWordFinderBlazor
 {
     public class WordFinder
     {
+        private static string[] _letterArray { get; set; } = new string[9];
         public static Dictionary<string, List<string>> LetterDictionary { get; set; }
         public string[] LetterArray { get; set; } = new string[9];
         public List<Word> WordList { get; set; }
@@ -107,8 +108,14 @@ namespace CountdownWordFinderBlazor
         {
             if (LetterArrayFilled())
             {
-                ArrayFilled = true;
-                FindWords();
+                // Checks if the arrays contain the same values so not to do extra work
+                if(!LetterArray.OrderBy(a => a).SequenceEqual(_letterArray.OrderBy(a => a)))
+                {
+                    Array.Copy(LetterArray, _letterArray, 9);
+                    ArrayFilled = true;
+                    FindWords();
+                }
+
             }
             else
                 ArrayFilled = false;
