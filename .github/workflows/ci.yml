@@ -1,43 +1,43 @@
-name: 'Publish application'
-on: push
+name: Deploy to GitHub Pages
+
+# Run workflow on every push to the master branch
+on:
+  push:
+    branches: [ main ]
 
 jobs:
-  build:
+  deploy-to-github-pages:
+    # use ubuntu-latest image to run steps on
     runs-on: ubuntu-latest
     steps:
-        # Checkout the code
-        - uses: actions/checkout@v2
+    # uses GitHub's checkout action to checkout code form the master branch
+    - uses: actions/checkout@v2
+    
+    # sets up .NET Core SDK 5.0.202
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.202
 
-        # Install .NET Core SDK
-        - name: Setup .NET Core
-          uses: actions/setup-dotnet@v1
-          with:
-            dotnet-version: '5.0.202'
+    # publishes Blazor project to the release-folder
+    - name: Publish .NET Core Project
+      run: dotnet publish -c Release -o release --nologo
+    
+    # changes the base-tag in index.html from '/' to 'DotNetDocsShowDemo' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to CountdownWordFinderBlazor
+      run: sed -i 's/<base href="\/" \/>/<base href="\/CountdownWordFinderBlazor\/" \/>/g' release/wwwroot/index.html
+    
+    # copy index.html to 404.html to serve the same file when a file is not found
+    - name: copy index.html to 404.html
+      run: cp release/wwwroot/index.html release/wwwroot/404.html
 
-        # Run tests
-        - name: Test
-          run: dotnet test
-
-        # Generate the website
-        - name: Publish
-          run: dotnet publish CountdownWordFinderBlazor.csproj --configuration Release
-          
-        - name: Change base-tag in index.html from / to CountdownWordFinderBlazor
-          run: sed -i 's/<base href="\/" \/>/<base href="\/CountdownWordFinderBlazor\/" \/>/g' bin/Release/net5.0/publish/wwwroot/index.html
-        
-        # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
-        - name: Add .nojekyll file
-          run: touch bin/Release/net5.0/publish/wwwroot/.nojekyll
-          
-        # Publish the website
-        - name: GitHub Pages action
-          if: ${{ github.ref == 'refs/heads/main' }} # Publish only when the push is on master
-          uses: peaceiris/actions-gh-pages@v3.6.1
-          with:
-            github_token: ${{ secrets.PUBLISH_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: bin/Release/net5.0/publish/wwwroot
-            allow_empty_commit: false
-            keep_files: false
-            force_orphan: true
-            #cname: seanedwards.dev
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+      
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: release/wwwroot
