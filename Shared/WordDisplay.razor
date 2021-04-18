@@ -9,10 +9,30 @@
     }
     else
     { 
+        // Currently there's no difference between finding a 9 letter word any other length word,
+        // I'm hoping to make the 9 letter one look more jazzy at some point
         @if (LongestWord.Length == 9)
         {
             <div class="container word nine-letter">
                 <h2>You found a 9 letter word!</h2>
+
+                <div class="word-string nine-letter-word">@LongestWord.WordString</div>
+                @if (LongestWord.Definition != null)
+                {
+                    <div class="word-definition nine-letter-definition">@LongestWord.Definition</div> 
+                }
+                else if (DefinitionFailedToSet)
+                {
+                    <div class="word-definition">
+                        A definition couldn't be loaded, <a target="_blank" href="https://www.merriam-webster.com/dictionary/@LongestWord.WordString">try checking here</a> to see if this is actually a word
+                    </div>
+                }
+            </div>
+        }
+        else   
+        {
+            <div class="container word nine-letter">
+                <h2>You found a @LongestWord.Length letter word!</h2>
 
                 <div class="word-string nine-letter-word">@LongestWord.WordString</div>
                 @if (LongestWord.Definition != null)
